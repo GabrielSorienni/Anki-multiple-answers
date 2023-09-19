@@ -1,0 +1,47 @@
+<div id="correctAnswer" style="display:none"></div>
+
+<script>
+	//Script for modifying 'Show Answer' behavior for Input types. Modified from the original provided by hinekidori.
+	//Place the field containing the correct answer in a div with id="correctAnswer".
+	//Custom styling: style div#correct and div#incorrect for correct and incorrect answers respectively.
+	//Multiple answers: separate each answer with a semicolon and a space, or change the separator in answerFull.split.
+	var typeans = document.getElementById("typeans");
+	var innerHTMLText = [];
+	var htmlNodeLength = typeans.childNodes.length;
+	var firstBr = null;
+
+	//Capture each node to array
+	for (i = 0; i < htmlNodeLength; i++)
+	{
+		innerHTMLText[i] = typeans.childNodes[i].innerHTML;
+ 
+ 		//locate <br> tags for output change markers
+		if (firstBr == null && typeans.childNodes[i].nodeName == "BR")
+		{
+				firstBr = i;
+ 		}
+	}
+
+	//If answer is correct, firstBr will still be null, so must set to length of typeans.childNode
+	if (firstBr == null)
+	{
+		firstBr = htmlNodeLength;
+	}
+
+	//Assemble and treat typed answer
+	var typedAnswer = innerHTMLText.slice(0,firstBr).join("").replace(/-*$/, "").replace(/^-*/, "");
+	//Get full answer for display and array
+	var answerFull = document.getElementById('correctAnswer').innerHTML;
+	//Assemble array of answers in lowercase for comparison with typedAnswer
+	var answerArray = answerFull.split("; ").map(str => {return str.toLowerCase();});
+
+	//Check answer and apply appropriate div
+	if (answerArray.includes(typedAnswer.toLowerCase()))
+	{
+		typeans.innerHTML = "<div id='correct'>" + typedAnswer + "</div>";
+	}
+	else
+	{
+		typeans.innerHTML = "<div id='incorrect'>" + typedAnswer + "</div>";
+	}
+</script>
