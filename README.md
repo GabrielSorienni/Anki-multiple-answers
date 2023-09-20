@@ -15,3 +15,6 @@ This is a modification of [Input correct-incorrect](https://gist.github.com/hine
   * This can be remedied by removing the call to ``map`` in the declaration of ``answerArray`` and the call to ``toLowerCase`` in the answer verification to make it case-sensitive.
 * The input is treated to remove Anki's "filler dashes" when an answer is insufficiently long, meaning answers starting or ending with ``-`` will not be properly verified, and would require additional code in order to function.
 * As per usual, type fields do not influence scheduling of cards.
+
+# Known issues
+* Anki adds filler dashes in the middle of words when it detects an answer that matches two different parts of the full answer, which the treatment does not currently remove.
