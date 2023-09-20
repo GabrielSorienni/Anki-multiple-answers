@@ -1,7 +1,9 @@
 This code allows the inputting of one of multiple answers in an Anki card's type field, so long as each answer can be separated with a consistent string of characters. Does not require add-ons.
 Demonstrated in [this video](https://www.youtube.com/watch?v=sKlobvbJdYc).
 
-This is a modification of [Input correct-incorrect](https://gist.github.com/hinekidori/4085a1222af572057f1058d43cfce773) by hinekidori (as provided in [this video](https://www.youtube.com/watch?v=cNOCMtZj8t0)) to extend its functionality.
+# Credit
+* This is a modification of [Input correct-incorrect](https://gist.github.com/hinekidori/4085a1222af572057f1058d43cfce773) by hinekidori (as provided in [this video](https://www.youtube.com/watch?v=cNOCMtZj8t0)) to extend its functionality.
+* Uses [this repository](https://github.com/rayzchen/wk3-templates/tree/main)'s method to treat the input.
 
 # How to use
 * Copy-and-paste the contents of [back-template.html](back-template.html) into the card's back template.
@@ -13,8 +15,4 @@ This is a modification of [Input correct-incorrect](https://gist.github.com/hine
 # Notes
 * The answer verification is case-insensitive by default, meaning strings like "answer" and "aNswer" are equivalent.
   * This can be remedied by removing the call to ``map`` in the declaration of ``answerArray`` and the call to ``toLowerCase`` in the answer verification to make it case-sensitive.
-* The input is treated to remove Anki's "filler dashes" when an answer is insufficiently long, meaning answers starting or ending with ``-`` will not be properly verified, and would require additional code in order to function.
 * As per usual, type fields do not influence scheduling of cards.
-
-# Known issues
-* Anki adds filler dashes in the middle of words when it detects an answer that matches two different parts of the full answer, which the treatment does not currently remove.
