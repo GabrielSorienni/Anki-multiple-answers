@@ -6,30 +6,19 @@
 	//Custom styling: style div#correct and div#incorrect for correct and incorrect answers respectively.
 	//Multiple answers: separate each answer with a semicolon and a space, or change the separator in answerFull.split.
 	var typeans = document.getElementById("typeans");
-	var innerHTMLText = [];
-	var htmlNodeLength = typeans.childNodes.length;
-	var firstBr = null;
 
-	//Capture each node to array
-	for (i = 0; i < htmlNodeLength; i++)
+	//Remove everything afher the first <br/>
+	typeans.innerHTML = typeans.innerHTML.replace(/<br.*/, "");
+
+	var typedAnswer = "";
+
+	//Remove every "-" placed by Anki
+	typeans.querySelectorAll(".typeGood, .typeBad").forEach((e) =>
 	{
-		innerHTMLText[i] = typeans.childNodes[i].innerHTML;
- 
- 		//locate <br> tags for output change markers
-		if (firstBr == null && typeans.childNodes[i].nodeName == "BR")
-		{
-				firstBr = i;
- 		}
-	}
+		if (e.innerHTML == "-") return;
+		typedAnswer += e.innerHTML;
+	});
 
-	//If answer is correct, firstBr will still be null, so must set to length of typeans.childNode
-	if (firstBr == null)
-	{
-		firstBr = htmlNodeLength;
-	}
-
-	//Assemble and treat typed answer
-	var typedAnswer = innerHTMLText.slice(0,firstBr).join("").replace(/-*$/, "").replace(/^-*/, "");
 	//Get full answer for display and array
 	var answerFull = document.getElementById('correctAnswer').innerHTML;
 	//Assemble array of answers in lowercase for comparison with typedAnswer
